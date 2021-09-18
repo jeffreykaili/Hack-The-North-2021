@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014094159184",
+    "project_id": "hackthenorth2021-b6e36",
+    "storage_bucket": "hackthenorth2021-b6e36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014094159184:android:9c7765e55965e219c1e055",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014094159184-a286nae64v6jq0m4v58v8a1e2ir9bc3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTCRcecqwk9iL75SrL8RsyTindSKn9Ul8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014094159184-a286nae64v6jq0m4v58v8a1e2ir9bc3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
