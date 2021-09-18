@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/pages/dashboard/dashboard.dart';
 import 'package:flutter_application_1/pages/leaderboard/leaderboard_page.dart';
 import 'package:flutter_application_1/pages/shop/shop_page.dart';
@@ -14,14 +15,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser!;
 
-  Color bottomNavBarColor = Colors.white;
   int lastTap = DateTime.now().millisecondsSinceEpoch;
   int consecutiveTaps = 0;
   bool changedColour = false;
 
   int _currentIndex = 2;
 
-  late PageController _pageController = PageController(initialPage: 1);
+  late PageController _pageController = PageController(initialPage: 2);
 
   @override
   void initState() {
@@ -55,28 +55,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
         child: BottomNavigationBar(
             currentIndex: _currentIndex,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: bottomNavBarIconSelectedColor,
+            unselectedItemColor: bottomNavBarIconUnselectedColor,
             type: BottomNavigationBarType.fixed,
             backgroundColor: bottomNavBarColor,
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.arrow_back,
-                  size: 35,
+                  Icons.shopping_cart_rounded,
+                  size: 25,
                 ),
                 title: SizedBox.shrink(),
               ),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.terrain,
-                    size: 35,
+                    Icons.home_rounded,
+                    size: 30,
                   ),
                   title: SizedBox.shrink()),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.music_note,
-                    size: 35,
+                    Icons.leaderboard_rounded,
+                    size: 30,
                   ),
                   title: SizedBox.shrink()),
             ],
