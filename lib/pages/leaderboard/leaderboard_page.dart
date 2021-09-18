@@ -20,11 +20,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
       body: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Column(
-          children: [
-            LeaderboardTile(),
-            LeaderboardTile(),
-            LeaderboardTile(),
-          ],
+          children: [],
         ),
       ),
     );

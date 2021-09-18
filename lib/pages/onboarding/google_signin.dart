@@ -39,6 +39,8 @@ class SignInPage extends StatelessWidget {
                         .collection("users")
                         .doc(uid)
                         .set({
+                      "profile_pic": user.photoURL,
+                      "name": user.displayName,
                       "wallet_id": null,
                       "step_offset": null,
                       "week_data": {

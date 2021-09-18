@@ -4,13 +4,36 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants.dart';
 
 class LeaderboardTile extends StatefulWidget {
-  const LeaderboardTile({Key? key}) : super(key: key);
+  final String name;
+  final int index;
+  final int steps;
+  final String imgURL;
+  const LeaderboardTile(
+      {Key? key,
+      required this.name,
+      required this.index,
+      required this.steps,
+      required this.imgURL})
+      : super(key: key);
 
   @override
   _LeaderboardTileState createState() => _LeaderboardTileState();
 }
 
 class _LeaderboardTileState extends State<LeaderboardTile> {
+  String toOrd(var num) {
+    // num = int.parse(num);
+    var digits = [num % 10, num % 100];
+    var ordinals = ['st', 'nd', 'rd', 'th'];
+    var lst = [1, 2, 3, 4];
+    var special = [11, 12, 13, 14, 15, 16, 17, 18, 19];
+    if (lst.contains(digits[0]) && !special.contains(digits[1])) {
+      return num.toString() + ordinals[digits[0] - 1];
+    } else {
+      return num.toString() + "th";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +45,7 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
             color: white,
             margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,8 +56,8 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
-                        "2.",
-                        style: GoogleFonts.poppins(fontSize: 18),
+                        toOrd(99),
+                        style: GoogleFonts.poppins(fontSize: 16),
                       ),
                     ),
                     Padding(
@@ -43,9 +66,9 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                         height: 75,
                         width: 75,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(37.5),
+                          borderRadius: BorderRadius.circular(22),
                           child: Image.network(
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Michael_Jordan_in_2014.jpg/220px-Michael_Jordan_in_2014.jpg",
+                            widget.imgURL,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -56,30 +79,21 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.35,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Abhinav",
+                                  widget.name,
                                   style: GoogleFonts.poppins(
                                     color: purple,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 20,
                                     height: 1.25,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  "Bala",
-                                  style: GoogleFonts.poppins(
-                                    color: purple,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20,
-                                    height: 1.25,
-                                  ),
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ],
@@ -96,7 +110,7 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                     Padding(
                       padding: EdgeInsets.only(right: 15),
                       child: Text(
-                        "12032",
+                        widget.steps.toString(),
                         style: GoogleFonts.poppins(
                           color: leaderboardStepColor,
                           fontWeight: FontWeight.w700,

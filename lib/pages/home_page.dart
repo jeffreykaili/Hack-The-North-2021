@@ -17,7 +17,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   late PageController _pageController = PageController(initialPage: 2);
 
-  Color bottomNavBarColor = Colors.white;
   int _currentIndex = 2;
 
   @override
