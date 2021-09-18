@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:provider/provider.dart';
-import './provider.dart';
-import './home.dart';
+import '../../services/provider.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -16,8 +16,7 @@ class SignInPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text("An error occured."));
           } else if (snapshot.hasData) {
-            final user = FirebaseAuth.instance.currentUser!;
-            return Home();
+            return HomePage();
           } else {
             return Login();
           }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import './provider.dart';
+import '../../services/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 
@@ -9,14 +9,14 @@ String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Dashboard extends StatefulWidget {
+  const Dashboard({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _HomeState extends State<Home> {
+class _DashboardState extends State<Dashboard> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
