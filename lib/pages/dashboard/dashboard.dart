@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,18 +30,24 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void onStepCount(StepCount event) async {
-    final first_time =
+    final data =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
-    if (first_time["step_offset"] == null ||
-        first_time["step_offset"] > event.steps) {
+    if (data["step_offset"] == null) {
       await FirebaseFirestore.instance
           .collection("users")
           .doc(uid)
           .update({"step_offset": event.steps});
     }
     print(event);
-    setState(() {
+    setState(() async {
+      final day_of_week = DateFormat('EEEE').format(DateTime.now());
+      final yesterday =
+          DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
       _steps = event.steps.toString();
+      FirebaseFirestore.instance.collection("users").doc(uid).update({
+        "week_data." + day_of_week:
+            int.parse(_steps) - data["week_data"][yesterday]
+      });
     });
   }
 
@@ -90,9 +97,31 @@ class _DashboardState extends State<Dashboard> {
               'Steps taken:',
               style: TextStyle(fontSize: 30),
             ),
-            Text(
-              _steps,
-              style: TextStyle(fontSize: 60),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(uid)
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  final day_of_week = DateFormat('EEEE').format(DateTime.now());
+                  final data = (snapshot.data!.data() as Map);
+                  final today_steps =
+                      data["week_data"][day_of_week] - data["step_offset"];
+
+                  print("HERE: " + day_of_week + " " + today_steps.toString());
+
+                  return Text(
+                    today_steps.toString(),
+                    style: TextStyle(fontSize: 60),
+                  );
+                } else
+                  return Text(
+                    "0",
+                    style: TextStyle(fontSize: 60),
+                  );
+              },
             ),
             Divider(
               height: 100,
