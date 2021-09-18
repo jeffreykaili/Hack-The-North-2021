@@ -1,13 +1,12 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 
-String formatDate(DateTime d) {
-  return d.toString().substring(0, 19);
-}
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -19,7 +18,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
-  String _status = '?', _steps = '?';
+  final user = FirebaseAuth.instance.currentUser!;
+  final uid = FirebaseAuth.instance.currentUser!.uid;
+  String _status = 'stopped', _steps = '0';
 
   @override
   void initState() {
@@ -27,7 +28,16 @@ class _DashboardState extends State<Dashboard> {
     initPlatformState();
   }
 
-  void onStepCount(StepCount event) {
+  void onStepCount(StepCount event) async {
+    final first_time =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    if (first_time["step_offset"] == null ||
+        first_time["step_offset"] > event.steps) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .update({"step_offset": event.steps});
+    }
     print(event);
     setState(() {
       _steps = event.steps.toString();
@@ -70,7 +80,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       body: Container(
         child: Column(

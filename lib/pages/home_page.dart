@@ -14,14 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser!;
 
-  Color bottomNavBarColor = Colors.white;
-  int lastTap = DateTime.now().millisecondsSinceEpoch;
-  int consecutiveTaps = 0;
-  bool changedColour = false;
-
-  int _currentIndex = 2;
-
   late PageController _pageController = PageController(initialPage: 1);
+
+  Color bottomNavBarColor = Colors.white;
+  int _currentIndex = 2;
 
   @override
   void initState() {
