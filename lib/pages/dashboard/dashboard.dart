@@ -82,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
             : data["week_data"][yesterday]) -
         data["week_data"][day_of_week];
     await updateCoins(difference);
-    FirebaseFirestore.instance.collection("users").doc(uid).update({
+    await FirebaseFirestore.instance.collection("users").doc(uid).update({
       "week_data." + day_of_week: int.parse(_steps) -
           (data["week_data"][yesterday] == 0
               ? data["step_offset"]
