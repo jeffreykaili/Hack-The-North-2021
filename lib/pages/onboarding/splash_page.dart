@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/pages/onboarding/google_signin.dart';
 import 'package:flutter_application_1/pages/onboarding/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import '../../constants.dart';
@@ -21,8 +22,7 @@ class SplashState extends State<Splash> {
   void checkFirstSeen() {
     Navigator.of(context).pushReplacement(PageRouteBuilder(
         transitionDuration: Duration(milliseconds: 1250),
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            LandingPage()));
+        pageBuilder: (context, animation, secondaryAnimation) => SignInPage()));
   }
 
   @override
