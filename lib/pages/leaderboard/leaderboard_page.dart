@@ -26,7 +26,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
         child: StreamBuilder<QuerySnapshot>(
           stream: db
               .collection("users")
-              .orderBy('week_data.$day_of_week')
+              .orderBy('week_data.$day_of_week', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

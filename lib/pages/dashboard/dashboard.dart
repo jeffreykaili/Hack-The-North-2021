@@ -38,17 +38,17 @@ class _DashboardState extends State<Dashboard> {
           .doc(uid)
           .update({"step_offset": event.steps});
     }
-    print(event);
-    setState(() async {
-      final day_of_week = DateFormat('EEEE').format(DateTime.now());
-      final yesterday =
-          DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
-      _steps = event.steps.toString();
-      FirebaseFirestore.instance.collection("users").doc(uid).update({
-        "week_data." + day_of_week:
-            int.parse(_steps) - data["week_data"][yesterday]
-      });
+
+    final day_of_week = DateFormat('EEEE').format(DateTime.now());
+    final yesterday =
+        DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
+    _steps = event.steps.toString();
+    FirebaseFirestore.instance.collection("users").doc(uid).update({
+      "week_data." + day_of_week:
+          int.parse(_steps) - data["week_data"][yesterday]
     });
+
+    print(event);
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
@@ -117,9 +117,12 @@ class _DashboardState extends State<Dashboard> {
                     style: TextStyle(fontSize: 60),
                   );
                 } else
-                  return Text(
-                    "0",
-                    style: TextStyle(fontSize: 60),
+                  return Container(
+                    width: 25,
+                    child: Text(
+                      "0",
+                      style: TextStyle(fontSize: 60),
+                    ),
                   );
               },
             ),
