@@ -120,52 +120,52 @@ class _DashboardState extends State<Dashboard> {
                   Positioned.fill(
                     child: Align(
                       alignment: Alignment.center,
-                      child: Container(
-                        height: 1000,
-                        child: Column(
-                          children: [
-                            StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection("users")
-                                  .doc(uid)
-                                  .snapshots(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
-                                if (snapshot.hasData) {
-                                  final day_of_week =
-                                      DateFormat('EEEE').format(DateTime.now());
-                                  final data = (snapshot.data!.data() as Map);
-                                  final today_steps =
-                                      data["week_data"][day_of_week];
-                                  print("BROKEN: " +
-                                      today_steps.toString() +
-                                      " " +
-                                      _steps);
-                                  return Text(
-                                    today_steps.toString(),
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 60,
-                                    ),
-                                  );
-                                } else
-                                  return Text(
-                                    "0",
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 60,
-                                    ),
-                                  );
-                              },
-                            ),
-                            Text(
-                              "Steps",
+                      child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(uid)
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasData) {
+                            final day_of_week =
+                                DateFormat('EEEE').format(DateTime.now());
+                            final data = (snapshot.data!.data() as Map);
+                            final today_steps = data["week_data"][day_of_week];
+                            print("BROKEN: " +
+                                today_steps.toString() +
+                                " " +
+                                _steps);
+                            return Text(
+                              today_steps.toString(),
                               style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 60,
                               ),
-                            ),
-                          ],
+                            );
+                          } else
+                            return Text(
+                              "0",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 60,
+                              ),
+                            );
+                        },
+                      ),
+                    ),
+                  ),
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 100),
+                        child: Text(
+                          "Steps",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 30,
+                          ),
                         ),
                       ),
                     ),
