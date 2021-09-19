@@ -39,7 +39,7 @@ Future<void> removeWalletBalance(amount) async {
       "https://good-cow-34.loca.lt/removecoin?address=$walletID&amount=$amount",
     ),
   );
-  if (response == 200) {
+  if (response.statusCode == 200) {
     print("REMOVE SUCCESSFUL, NEW BALANCE IS: " +
         jsonDecode(response.body)["balance"].toString());
   }
@@ -55,7 +55,7 @@ Future<void> addWalletBalance(amount) async {
       "https://good-cow-34.loca.lt/addcoin?address=$walletID&amount=$amount",
     ),
   );
-  if (response == 200) {
+  if (response.statusCode == 200) {
     print("ADD SUCCESSFUL, NEW BALANCE IS: " +
         jsonDecode(response.body)["balance"].toString());
   }
@@ -142,13 +142,40 @@ class _MarketPageState extends State<MarketPage> {
                       ),
                     ),
                     Divider(),
-                    MarketplaceTile(
-                      imgURL:
-                          "http://justfunfacts.com/wp-content/uploads/2021/03/black.jpg",
-                      company: "AMAZON",
-                      price: "6969",
-                      logo:
-                          "https://cdn3.iconfinder.com/data/icons/cute-flat-social-media-icons-3/512/amazon.png",
+                    InkWell(
+                      onTap: () {
+                        const cost = 6969;
+                        if (_bal < cost) {
+                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Insufficient EXE.'),
+                              ),
+                            );
+                          });
+                        } else {
+                          setState(() {
+                            _bal = _bal - cost;
+                          });
+                          removeWalletBalance(cost);
+                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Redeemed. Please check your email for the code!'),
+                              ),
+                            );
+                          });
+                        }
+                      },
+                      child: MarketplaceTile(
+                        imgURL:
+                            "http://justfunfacts.com/wp-content/uploads/2021/03/black.jpg",
+                        company: "AMAZON",
+                        price: "6969",
+                        logo:
+                            "https://cdn3.iconfinder.com/data/icons/cute-flat-social-media-icons-3/512/amazon.png",
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
