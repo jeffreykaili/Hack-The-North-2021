@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   syncfusion_flutter_gauges: ^19.2.62
   fl_chart: ^0.40.0
+  http: ^0.13.3
 
 
 dev_dependencies:
