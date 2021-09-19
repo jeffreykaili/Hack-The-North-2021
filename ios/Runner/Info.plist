@@ -24,11 +24,16 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1014094159184-lovjlf76j78125iju5e0l1metv0s3v71</string>
+				<string>com.googleusercontent.apps.1014094159184-4hiivuedlsu7uv880e24seums1t0o78a</string>
 			</array>
 		</dict>
-		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>

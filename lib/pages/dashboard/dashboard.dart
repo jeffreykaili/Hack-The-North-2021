@@ -232,14 +232,6 @@ class _DashboardState extends State<Dashboard> {
                   }
                 },
               ),
-              Center(
-                child: Text(
-                  _status,
-                  style: _status == 'walking' || _status == 'stopped'
-                      ? TextStyle(fontSize: 30)
-                      : TextStyle(fontSize: 20, color: Colors.red),
-                ),
-              ),
             ],
           ),
         ),

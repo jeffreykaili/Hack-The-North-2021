@@ -62,7 +62,8 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                         child: Text(
                           toOrd(widget.index),
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(fontSize: 17),
+                          style: GoogleFonts.poppins(
+                              fontSize: 17, fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
