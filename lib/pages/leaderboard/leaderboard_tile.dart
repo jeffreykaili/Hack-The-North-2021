@@ -55,16 +55,20 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        toOrd(widget.index),
-                        style: GoogleFonts.poppins(fontSize: 16),
+                      child: Container(
+                        width: 40,
+                        child: Text(
+                          toOrd(widget.index),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(fontSize: 17),
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: EdgeInsets.only(left: 5),
                       child: SizedBox(
-                        height: 75,
-                        width: 75,
+                        height: 70,
+                        width: 70,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(22),
                           child: Image.network(
@@ -85,16 +89,19 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  widget.name,
-                                  style: GoogleFonts.poppins(
-                                    color: purple,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20,
-                                    height: 1.25,
+                                FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    widget.name,
+                                    style: GoogleFonts.poppins(
+                                      color: purple,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 20,
+                                      height: 1.25,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
