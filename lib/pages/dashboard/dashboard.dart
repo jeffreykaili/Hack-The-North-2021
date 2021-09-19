@@ -10,6 +10,8 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../services/provider.dart';
 import './line_graph.dart';
@@ -35,6 +37,22 @@ class _DashboardState extends State<Dashboard> {
     initPlatformState();
   }
 
+  Future<void> updateCoins(amount) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final data =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    final walletID = data["wallet_id"];
+    http.Response response = await http.get(
+      Uri.parse(
+        "https://good-cow-34.loca.lt/addcoin?address=$walletID&amount=$amount",
+      ),
+    );
+    if (response.statusCode == 200) {
+      print("ADD SUCCESSFUL, NEW BALANCE IS: " +
+          jsonDecode(response.body)["balance"].toString());
+    }
+  }
+
   void onStepCount(StepCount event) async {
     final data =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
@@ -52,6 +70,13 @@ class _DashboardState extends State<Dashboard> {
     final day_of_week = DateFormat('EEEE').format(DateTime.now());
     final yesterday =
         DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
+
+    final difference = int.parse(_steps) -
+        (data["week_data"][yesterday] == 0
+            ? data["step_offset"]
+            : data["week_data"][yesterday]) -
+        data["week_data"][day_of_week];
+    await updateCoins(difference);
     FirebaseFirestore.instance.collection("users").doc(uid).update({
       "week_data." + day_of_week: int.parse(_steps) -
           (data["week_data"][yesterday] == 0
