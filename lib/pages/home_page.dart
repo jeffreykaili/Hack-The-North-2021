@@ -16,9 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser!;
 
-  late PageController _pageController = PageController(initialPage: 1);
+  late PageController _pageController = PageController(initialPage: 0);
 
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   @override
   void initState() {
