@@ -15,6 +15,8 @@ class LeaderboardPage extends StatefulWidget {
 
 class _LeaderboardPageState extends State<LeaderboardPage> {
   final day_of_week = DateFormat('EEEE').format(DateTime.now());
+  final yesterday =
+      DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
   final db = FirebaseFirestore.instance;
   ScrollController _scrollController = ScrollController();
   @override
@@ -35,9 +37,11 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       if (index == 0) {
+                        dynamic doc = snapshot.data!.docs[index];
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
                           child: Card(
+                            elevation: 3,
                             color: purple,
                             shape: RoundedRectangleBorder(
                                 borderRadius:
@@ -60,7 +64,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                                         width: 120,
                                         child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(22),
+                                              BorderRadius.circular(18),
                                           child: Image.network(
                                             snapshot.data!.docs[0]
                                                 ['profile_pic'],
@@ -88,14 +92,29 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                                               color: white,
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        Text(
-                                          snapshot.data!
-                                              .docs[0]['week_data.$day_of_week']
-                                              .toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 36,
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              doc['week_data'][day_of_week] >
+                                                      doc['week_data']
+                                                          [yesterday]
+                                                  ? Icons.expand_less_sharp
+                                                  : Icons.expand_more_sharp,
                                               color: yellow,
-                                              fontWeight: FontWeight.w600),
+                                              size: 30,
+                                            ),
+                                            Text(
+                                              snapshot
+                                                  .data!
+                                                  .docs[0]
+                                                      ['week_data.$day_of_week']
+                                                  .toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 36,
+                                                  color: yellow,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     )
@@ -108,10 +127,12 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       }
                       dynamic doc = snapshot.data!.docs[index];
                       return LeaderboardTile(
-                          name: doc['name'],
-                          index: (index + 1),
-                          steps: doc['week_data'][day_of_week],
-                          imgURL: doc['profile_pic']);
+                        name: doc['name'],
+                        index: (index + 1),
+                        steps: doc['week_data'][day_of_week],
+                        imgURL: doc['profile_pic'],
+                        prevDay: doc['week_data'][yesterday],
+                      );
                     });
               } else {
                 return CircularProgressIndicator();

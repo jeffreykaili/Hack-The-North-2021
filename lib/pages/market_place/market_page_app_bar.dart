@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import '../../constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-PreferredSizeWidget shopAppBar() {
+PreferredSizeWidget marketAppBar() {
   return AppBar(
     automaticallyImplyLeading: false,
     shape: RoundedRectangleBorder(
@@ -11,10 +11,10 @@ PreferredSizeWidget shopAppBar() {
         bottom: Radius.circular(20),
       ),
     ),
-    toolbarHeight: 70,
+    toolbarHeight: 60,
     centerTitle: true,
     title: Text(
-      "Shop",
+      "Market Place",
       textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
         letterSpacing: 1.5,

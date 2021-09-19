@@ -11,7 +11,7 @@ PreferredSizeWidget leaderboardAppBar() {
         bottom: Radius.circular(20),
       ),
     ),
-    toolbarHeight: 70,
+    toolbarHeight: 60,
     centerTitle: true,
     title: Text(
       "Leaderboard",

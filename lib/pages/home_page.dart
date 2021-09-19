@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/pages/dashboard/dashboard.dart';
 import 'package:flutter_application_1/pages/leaderboard/leaderboard_page.dart';
-import 'package:flutter_application_1/pages/shop/shop_page.dart';
+import 'package:flutter_application_1/pages/market_place/market_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: [
-          ShopPage(),
+          MarketPage(),
           Dashboard(),
           LeaderboardPage(),
         ],

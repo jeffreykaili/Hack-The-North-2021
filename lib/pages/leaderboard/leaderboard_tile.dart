@@ -8,12 +8,14 @@ class LeaderboardTile extends StatefulWidget {
   final int index;
   final int steps;
   final String imgURL;
+  final int prevDay;
   const LeaderboardTile(
       {Key? key,
       required this.name,
       required this.index,
       required this.steps,
-      required this.imgURL})
+      required this.imgURL,
+      required this.prevDay})
       : super(key: key);
 
   @override
@@ -39,13 +41,13 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
     return Padding(
         padding: const EdgeInsets.fromLTRB(15, 3, 15, 3),
         child: Container(
-          height: 105,
+          height: 95,
           child: Card(
-            elevation: 2,
+            elevation: 1,
             color: white,
             margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,9 +113,13 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                     ),
                   ],
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Row(
                   children: [
+                    Icon(
+                        widget.prevDay < widget.steps
+                            ? Icons.expand_less_sharp
+                            : Icons.expand_more_sharp,
+                        color: yellow),
                     Padding(
                       padding: EdgeInsets.only(right: 15),
                       child: Text(
@@ -127,9 +133,9 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                    ),
+                    )
                   ],
-                )
+                ),
               ],
             ),
           ),
