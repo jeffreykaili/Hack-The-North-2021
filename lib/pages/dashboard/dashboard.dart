@@ -12,6 +12,7 @@ import 'dart:math';
 
 import '../../services/provider.dart';
 import './line_graph.dart';
+import './dashboard_app_bar.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -50,15 +51,12 @@ class _DashboardState extends State<Dashboard> {
     final day_of_week = DateFormat('EEEE').format(DateTime.now());
     final yesterday =
         DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
-    _steps = event.steps.toString();
     FirebaseFirestore.instance.collection("users").doc(uid).update({
       "week_data." + day_of_week: int.parse(_steps) -
           (data["week_data"][yesterday] == 0
               ? data["step_offset"]
               : data["week_data"][yesterday])
     });
-
-    print(event);
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
@@ -105,6 +103,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: dashboardAppBar(),
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * 0.9,
@@ -112,9 +111,6 @@ class _DashboardState extends State<Dashboard> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.88,
                 child: Stack(
