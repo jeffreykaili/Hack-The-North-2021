@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/market_place/market_page_app_bar.dart';
 import 'package:http/http.dart' as http;
@@ -19,9 +18,14 @@ Future<int> getWalletBalance() async {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final data =
       await FirebaseFirestore.instance.collection("users").doc(uid).get();
+  final URL_doc = await FirebaseFirestore.instance
+      .collection("url")
+      .doc("2bS2ARmI57oHaunpCADA")
+      .get();
+  final URL = URL_doc.data()!["url"];
   final walletID = data["wallet_id"];
-  http.Response response = await http.get(
-      Uri.parse('https://good-cow-34.loca.lt/fetchcoin?address=$walletID'));
+  http.Response response =
+      await http.get(Uri.parse(URL + 'fetchcoin?address=$walletID'));
   if (response.statusCode == 200) {
     return jsonDecode(response.body)["balance"];
   } else {
@@ -33,10 +37,15 @@ Future<void> removeWalletBalance(amount) async {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final data =
       await FirebaseFirestore.instance.collection("users").doc(uid).get();
+  final URL_doc = await FirebaseFirestore.instance
+      .collection("url")
+      .doc("2bS2ARmI57oHaunpCADA")
+      .get();
+  final URL = URL_doc.data()!["url"];
   final walletID = data["wallet_id"];
   http.Response response = await http.get(
     Uri.parse(
-      "https://good-cow-34.loca.lt/removecoin?address=$walletID&amount=$amount",
+      URL + "removecoin?address=$walletID&amount=$amount",
     ),
   );
   if (response.statusCode == 200) {
@@ -49,10 +58,15 @@ Future<void> addWalletBalance(amount) async {
   final uid = FirebaseAuth.instance.currentUser!.uid;
   final data =
       await FirebaseFirestore.instance.collection("users").doc(uid).get();
+  final URL_doc = await FirebaseFirestore.instance
+      .collection("url")
+      .doc("2bS2ARmI57oHaunpCADA")
+      .get();
+  final URL = URL_doc.data()!["url"];
   final walletID = data["wallet_id"];
   http.Response response = await http.get(
     Uri.parse(
-      "https://good-cow-34.loca.lt/addcoin?address=$walletID&amount=$amount",
+      URL + "addcoin?address=$walletID&amount=$amount",
     ),
   );
   if (response.statusCode == 200) {

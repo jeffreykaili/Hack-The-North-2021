@@ -41,10 +41,15 @@ class _DashboardState extends State<Dashboard> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final data =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
+    final URL_doc = await FirebaseFirestore.instance
+        .collection("url")
+        .doc("2bS2ARmI57oHaunpCADA")
+        .get();
+    final URL = URL_doc.data()!["url"];
     final walletID = data["wallet_id"];
     http.Response response = await http.get(
       Uri.parse(
-        "https://good-cow-34.loca.lt/addcoin?address=$walletID&amount=$amount",
+        URL + "addcoin?address=$walletID&amount=$amount",
       ),
     );
     if (response.statusCode == 200) {
