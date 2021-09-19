@@ -56,7 +56,7 @@ class _LeaderboardTileState extends State<LeaderboardTile> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Text(
-                        toOrd(99),
+                        toOrd(widget.index),
                         style: GoogleFonts.poppins(fontSize: 16),
                       ),
                     ),
