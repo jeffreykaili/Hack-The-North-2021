@@ -74,8 +74,21 @@ class SignInPage extends StatelessWidget {
   }
 }
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  void login() async {
+    final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
+    await provider.googleLogin();
+    Navigator.of(context).pushReplacement(PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 1000),
+        pageBuilder: (context, animation, secondaryAnimation) => SignInPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +107,7 @@ class Login extends StatelessWidget {
             SizedBox(height: 50),
             GestureDetector(
               onTap: () {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.googleLogin();
+                login();
               },
               child: Container(
                 width: 300,

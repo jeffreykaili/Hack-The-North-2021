@@ -41,7 +41,7 @@ class _LandingPageState extends State<LandingPage> {
                     TypewriterAnimatedText(
                       'Welcome to',
                       speed: Duration(milliseconds: 160),
-                      textStyle: TextStyle(
+                      textStyle: GoogleFonts.poppins(
                           fontSize: 40,
                           color: purple,
                           fontWeight: FontWeight.w600),
@@ -53,7 +53,7 @@ class _LandingPageState extends State<LandingPage> {
                   delayDuration: Duration(milliseconds: 1000),
                   child: Text(
                     'Exer',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                         fontSize: 90,
                         color: purple,
                         fontWeight: FontWeight.w600),
@@ -69,7 +69,7 @@ class _LandingPageState extends State<LandingPage> {
                           transitionDuration: Duration(milliseconds: 1000),
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  SignInPage(),
+                                  Login(),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
                             return child;
