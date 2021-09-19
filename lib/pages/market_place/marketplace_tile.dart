@@ -6,11 +6,14 @@ class MarketplaceTile extends StatelessWidget {
   final company;
   final price;
   final logo;
+  final realprice;
+
   MarketplaceTile({
     @required this.imgURL,
     @required this.company,
     @required this.price,
     @required this.logo,
+    @required this.realprice,
   });
 
   @override
@@ -57,30 +60,48 @@ class MarketplaceTile extends StatelessWidget {
           ),
           Positioned.fill(
             child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(top: 25, right: 30),
+                child: Text(
+                  realprice,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 60,
+                    height: 1.2,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: 80,
                 width: MediaQuery.of(context).size.width - 26,
                 child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15.0),
-                              ),
-                            ),
-                            primary: Color(0xFF4E47C6),
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15.0),
                           ),
+                          color: Color(0xFF4E47C6),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
                           child: Text(
                             "Redeem for " + price + " EXE",
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
@@ -89,8 +110,10 @@ class MarketplaceTile extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(

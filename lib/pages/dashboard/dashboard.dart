@@ -138,7 +138,7 @@ class _DashboardState extends State<Dashboard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.7,
+                width: MediaQuery.of(context).size.width * 0.85,
                 child: Stack(
                   children: [
                     StreamBuilder(
@@ -165,13 +165,13 @@ class _DashboardState extends State<Dashboard> {
                                   showLabels: false,
                                   showTicks: false,
                                   axisLineStyle: AxisLineStyle(
-                                    thickness: 18,
+                                    thickness: 16,
                                     color: Color(0xFFecebf3),
                                     cornerStyle: CornerStyle.bothCurve,
                                   ),
                                   pointers: <GaugePointer>[
                                     RangePointer(
-                                      width: 18,
+                                      width: 16,
                                       value: percent_gauge.toDouble(),
                                       cornerStyle: CornerStyle.bothCurve,
                                       color: Color(0xFFff5840),
