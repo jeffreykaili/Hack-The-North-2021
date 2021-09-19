@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
@@ -14,8 +15,8 @@ class LineChartSample2 extends StatefulWidget {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+    red,
+    yellow,
   ];
 
   bool showAvg = false;
@@ -33,7 +34,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(18),
                 ),
-                color: Color(0xffe7f8ff)),
+                color: Colors.white),
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -66,8 +67,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                       color: showAvg
-                          ? Colors.black.withOpacity(0.1)
-                          : Colors.black,
+                          ? Colors.black.withOpacity(0.5)
+                          : Color(0XFFF02A54),
                     ),
                   ),
                 ),
@@ -87,8 +88,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 showAvg ? 'Average Steps' : 'Steps History',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                  color: Colors.black,
+                  fontSize: 24,
+                  color: purple,
                 ),
               ),
             ),
@@ -99,6 +100,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
   }
 
   LineChartData mainData() {
+    print(widget.data);
     final info = widget.data;
     var spot_data = <FlSpot>[];
     const days = [
@@ -144,9 +146,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
           reservedSize: 22,
           interval: 1,
           getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff68737d),
+            color: Color(0XFF4E47C6),
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 14,
           ),
           getTitles: (value) {
             switch (value.toInt()) {
@@ -173,9 +175,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
           showTitles: true,
           interval: 1,
           getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff67727d),
+            color: Color(0XFF4E47C6),
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 11,
           ),
           getTitles: (value) {
             switch (value.toInt()) {
@@ -214,7 +216,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
           belowBarData: BarAreaData(
             show: true,
             colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+                gradientColors.map((color) => color.withOpacity(0.5)).toList(),
           ),
         ),
       ],
@@ -268,9 +270,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
           showTitles: true,
           reservedSize: 22,
           getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff68737d),
+            color: Color(0XFF4E47C6),
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 14,
           ),
           getTitles: (value) {
             switch (value.toInt()) {
@@ -297,9 +299,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
         leftTitles: SideTitles(
           showTitles: true,
           getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xff67727d),
+            color: Color(0XFF4E47C6),
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 11,
           ),
           getTitles: (value) {
             switch (value.toInt()) {
@@ -354,10 +356,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
           belowBarData: BarAreaData(show: true, colors: [
             ColorTween(begin: gradientColors[0], end: gradientColors[1])
                 .lerp(0.2)!
-                .withOpacity(0.1),
+                .withOpacity(0.4),
             ColorTween(begin: gradientColors[0], end: gradientColors[1])
                 .lerp(0.2)!
-                .withOpacity(0.1),
+                .withOpacity(0.4),
           ]),
         ),
       ],

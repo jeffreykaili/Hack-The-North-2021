@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:intl/intl.dart';
@@ -112,7 +113,7 @@ class _DashboardState extends State<Dashboard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.88,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: Stack(
                   children: [
                     StreamBuilder(
@@ -131,23 +132,27 @@ class _DashboardState extends State<Dashboard> {
                         }
                         var percent_gauge =
                             min(100, max(6, (steps / 10000) * 100));
-                        return SfRadialGauge(
-                          axes: <RadialAxis>[
-                            RadialAxis(
-                              showLabels: false,
-                              showTicks: false,
-                              axisLineStyle: AxisLineStyle(
-                                thickness: 18,
-                                color: Color(0xFFecebf3),
-                                cornerStyle: CornerStyle.bothCurve,
-                              ),
-                              pointers: <GaugePointer>[
-                                RangePointer(
-                                  width: 18,
-                                  value: percent_gauge.toDouble(),
-                                  cornerStyle: CornerStyle.bothCurve,
-                                  color: Color(0xFFff5840),
-                                )
+                        return Column(
+                          children: [
+                            SfRadialGauge(
+                              axes: <RadialAxis>[
+                                RadialAxis(
+                                  showLabels: false,
+                                  showTicks: false,
+                                  axisLineStyle: AxisLineStyle(
+                                    thickness: 18,
+                                    color: Color(0xFFecebf3),
+                                    cornerStyle: CornerStyle.bothCurve,
+                                  ),
+                                  pointers: <GaugePointer>[
+                                    RangePointer(
+                                      width: 18,
+                                      value: percent_gauge.toDouble(),
+                                      cornerStyle: CornerStyle.bothCurve,
+                                      color: Color(0xFFff5840),
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
                           ],
