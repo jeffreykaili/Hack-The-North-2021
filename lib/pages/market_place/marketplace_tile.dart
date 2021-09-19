@@ -5,10 +5,12 @@ class MarketplaceTile extends StatelessWidget {
   final imgURL;
   final company;
   final price;
+  final logo;
   MarketplaceTile({
     @required this.imgURL,
     @required this.company,
     @required this.price,
+    @required this.logo,
   });
 
   @override
@@ -38,6 +40,23 @@ class MarketplaceTile extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+              ),
+              child: Container(
+                width: 80,
+                height: 80,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50.0),
+                  child: FittedBox(
+                    child: Image.network(logo),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
             Positioned.fill(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -50,7 +69,7 @@ class MarketplaceTile extends StatelessWidget {
                         right: 10,
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
                             onPressed: () {},

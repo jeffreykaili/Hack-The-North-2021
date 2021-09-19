@@ -147,6 +147,8 @@ class _MarketPageState extends State<MarketPage> {
                           "http://justfunfacts.com/wp-content/uploads/2021/03/black.jpg",
                       company: "AMAZON",
                       price: "6969",
+                      logo:
+                          "https://cdn3.iconfinder.com/data/icons/cute-flat-social-media-icons-3/512/amazon.png",
                     ),
                     ElevatedButton(
                       onPressed: () {
