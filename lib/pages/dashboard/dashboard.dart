@@ -164,26 +164,38 @@ class _DashboardState extends State<Dashboard> {
                             min(100, max(6, (steps / 10000) * 100));
                         return Column(
                           children: [
-                            SfRadialGauge(
-                              axes: <RadialAxis>[
-                                RadialAxis(
-                                  showLabels: false,
-                                  showTicks: false,
-                                  axisLineStyle: AxisLineStyle(
-                                    thickness: 16,
-                                    color: Color(0xFFecebf3),
-                                    cornerStyle: CornerStyle.bothCurve,
+                            Container(
+                              padding: const EdgeInsets.all(0),
+                              height: MediaQuery.of(context).size.width /
+                                  1.1, // WORKAROUND
+                              child: Column(
+                                children: [
+                                  Flexible(
+                                    child: SfRadialGauge(
+                                      axes: <RadialAxis>[
+                                        RadialAxis(
+                                          showLabels: false,
+                                          showTicks: false,
+                                          axisLineStyle: AxisLineStyle(
+                                            thickness: 16,
+                                            color: Color(0xFFecebf3),
+                                            cornerStyle: CornerStyle.bothCurve,
+                                          ),
+                                          pointers: <GaugePointer>[
+                                            RangePointer(
+                                              width: 16,
+                                              value: percent_gauge.toDouble(),
+                                              cornerStyle:
+                                                  CornerStyle.bothCurve,
+                                              color: Color(0xFFff5840),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  pointers: <GaugePointer>[
-                                    RangePointer(
-                                      width: 16,
-                                      value: percent_gauge.toDouble(),
-                                      cornerStyle: CornerStyle.bothCurve,
-                                      color: Color(0xFFff5840),
-                                    )
-                                  ],
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ],
                         );
@@ -234,7 +246,7 @@ class _DashboardState extends State<Dashboard> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Padding(
-                          padding: EdgeInsets.only(top: 100),
+                          padding: EdgeInsets.only(top: 100, bottom: 0),
                           child: Text(
                             "Steps",
                             style: GoogleFonts.poppins(
