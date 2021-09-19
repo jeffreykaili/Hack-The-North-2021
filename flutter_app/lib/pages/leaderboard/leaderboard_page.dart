@@ -135,7 +135,7 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       );
                     });
               } else {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
             }));
   }
