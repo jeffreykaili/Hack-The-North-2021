@@ -5,6 +5,7 @@ import 'package:flutter_application_1/pages/dashboard/dashboard.dart';
 import 'package:flutter_application_1/pages/leaderboard/leaderboard_page.dart';
 import 'package:flutter_application_1/pages/market_place/market_page.dart';
 import 'package:flutter_application_1/pages/learning/learning_page.dart';
+import 'package:flutter_application_1/pages/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,9 +42,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         controller: _pageController,
         children: [
           MarketPage(),
+          LearningPage(),
           Dashboard(),
           LeaderboardPage(),
-          LearningPage(),
+          SettingsPage(),
         ],
       ),
       bottomNavigationBar: Theme(
@@ -67,7 +69,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home_rounded,
+                    Icons.menu_book,
+                    size: 30,
+                  ),
+                  title: SizedBox.shrink()),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
                     size: 30,
                   ),
                   title: SizedBox.shrink()),
@@ -79,7 +87,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   title: SizedBox.shrink()),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.menu_book,
+                    Icons.settings,
                     size: 30,
                   ),
                   title: SizedBox.shrink()),

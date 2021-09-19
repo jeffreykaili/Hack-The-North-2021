@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:flutter_application_1/pages/onboarding/onboarding_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../services/provider.dart';
 
@@ -63,7 +66,7 @@ class SignInPage extends StatelessWidget {
               },
             );
           } else {
-            return Login();
+            return LandingPage();
           }
         },
       ),
@@ -77,18 +80,46 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Login Page'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text("Sign in with Google"),
-          onPressed: () {
-            final provider =
-                Provider.of<GoogleSignInProvider>(context, listen: false);
-            provider.googleLogin();
-          },
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              width: MediaQuery.of(context).size.width - 100,
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset('assets/crown.png'),
+              ),
+            ),
+            SizedBox(height: 50),
+            GestureDetector(
+              onTap: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.googleLogin();
+              },
+              child: Container(
+                width: 300,
+                height: 55,
+                decoration: BoxDecoration(
+                    color: purple,
+                    borderRadius: BorderRadius.all(Radius.circular(40))),
+                child: Center(
+                  child: Text(
+                    "Sign in with Google",
+                    style: GoogleFonts.poppins(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        color: white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 150,
+            )
+          ]),
         ),
       ),
     );
