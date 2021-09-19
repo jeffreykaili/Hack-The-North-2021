@@ -4,6 +4,7 @@ import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/pages/dashboard/dashboard.dart';
 import 'package:flutter_application_1/pages/leaderboard/leaderboard_page.dart';
 import 'package:flutter_application_1/pages/market_place/market_page.dart';
+import 'package:flutter_application_1/pages/learning/learning_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,9 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final user = FirebaseAuth.instance.currentUser!;
 
-  late PageController _pageController = PageController(initialPage: 2);
+  late PageController _pageController = PageController(initialPage: 1);
 
-  int _currentIndex = 2;
+  int _currentIndex = 1;
 
   @override
   void initState() {
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           MarketPage(),
           Dashboard(),
           LeaderboardPage(),
+          LearningPage(),
         ],
       ),
       bottomNavigationBar: Theme(
@@ -72,6 +74,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.leaderboard_rounded,
+                    size: 30,
+                  ),
+                  title: SizedBox.shrink()),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.menu_book,
                     size: 30,
                   ),
                   title: SizedBox.shrink()),

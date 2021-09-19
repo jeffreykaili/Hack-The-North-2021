@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class LineChartSample2 extends StatefulWidget {
   final data;
@@ -112,7 +113,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
     for (var i = 0; i < days.length; i++) {
       info.keys.forEach((key) {
         if (key == days[i]) {
-          spot_data.add(FlSpot(i * 2, info[key] / 20000 * 8));
+          spot_data
+              .add(FlSpot(i * 2, min(20000, (info[key] as int)) / 20000 * 8));
         }
       });
     }
