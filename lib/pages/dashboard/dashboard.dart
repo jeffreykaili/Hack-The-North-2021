@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../services/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:intl/intl.dart';
-
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../services/provider.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -39,13 +41,19 @@ class _DashboardState extends State<Dashboard> {
           .update({"step_offset": event.steps});
     }
 
+    setState(() {
+      _steps = event.steps.toString();
+    });
+
     final day_of_week = DateFormat('EEEE').format(DateTime.now());
     final yesterday =
         DateFormat('EEEE').format(DateTime.now().subtract(Duration(days: 1)));
     _steps = event.steps.toString();
     FirebaseFirestore.instance.collection("users").doc(uid).update({
-      "week_data." + day_of_week:
-          int.parse(_steps) - data["week_data"][yesterday]
+      "week_data." + day_of_week: int.parse(_steps) -
+          (data["week_data"][yesterday] == 0
+              ? data["step_offset"]
+              : data["week_data"][yesterday])
     });
 
     print(event);
@@ -88,78 +96,100 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Steps taken:',
-              style: TextStyle(fontSize: 30),
-            ),
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .doc(uid)
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<DocumentSnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  final day_of_week = DateFormat('EEEE').format(DateTime.now());
-                  final data = (snapshot.data!.data() as Map);
-                  final today_steps =
-                      data["week_data"][day_of_week] - data["step_offset"];
-
-                  print("HERE: " + day_of_week + " " + today_steps.toString());
-
-                  return Text(
-                    today_steps.toString(),
-                    style: TextStyle(fontSize: 60),
-                  );
-                } else
-                  return Container(
-                    width: 25,
-                    child: Text(
-                      "0",
-                      style: TextStyle(fontSize: 60),
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  SfRadialGauge(axes: <RadialAxis>[
+                    RadialAxis(
+                      showLabels: false,
+                      showTicks: false,
+                      axisLineStyle: AxisLineStyle(
+                        thickness: 0.14,
+                        thicknessUnit: GaugeSizeUnit.factor,
+                        color: Color(0xFFff5840),
+                        cornerStyle: CornerStyle.bothCurve,
+                      ),
                     ),
-                  );
-              },
-            ),
-            Divider(
-              height: 100,
-              thickness: 0,
-              color: Colors.white,
-            ),
-            Text(
-              'Pedestrian status:',
-              style: TextStyle(fontSize: 30),
-            ),
-            Icon(
-              _status == 'walking'
-                  ? Icons.directions_walk
-                  : _status == 'stopped'
-                      ? Icons.accessibility_new
-                      : Icons.error,
-              size: 100,
-            ),
-            Center(
-              child: Text(
-                _status,
-                style: _status == 'walking' || _status == 'stopped'
-                    ? TextStyle(fontSize: 30)
-                    : TextStyle(fontSize: 20, color: Colors.red),
+                  ]),
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 1000,
+                        child: Column(
+                          children: [
+                            StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(uid)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasData) {
+                                  final day_of_week =
+                                      DateFormat('EEEE').format(DateTime.now());
+                                  final data = (snapshot.data!.data() as Map);
+                                  final today_steps =
+                                      data["week_data"][day_of_week];
+                                  print("BROKEN: " +
+                                      today_steps.toString() +
+                                      " " +
+                                      _steps);
+                                  return Text(
+                                    today_steps.toString(),
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 60,
+                                    ),
+                                  );
+                                } else
+                                  return Text(
+                                    "0",
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 60,
+                                    ),
+                                  );
+                              },
+                            ),
+                            Text(
+                              "Steps",
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 30,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-              },
-              child: Text("Logout"),
-            ),
-          ],
+              Icon(
+                _status == 'walking'
+                    ? Icons.directions_walk
+                    : _status == 'stopped'
+                        ? Icons.accessibility_new
+                        : Icons.error,
+                size: 100,
+              ),
+              Center(
+                child: Text(
+                  _status,
+                  style: _status == 'walking' || _status == 'stopped'
+                      ? TextStyle(fontSize: 30)
+                      : TextStyle(fontSize: 20, color: Colors.red),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
