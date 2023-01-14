@@ -1,3 +1,7 @@
+## Demo 
+
+https://youtu.be/UTO68pE9now
+
 ## Inspiration
 Our inspiration for Exer came when we noticed 3 things - the 3 things we think to be most critical in today’s modern world. Firstly, our health and well-being is a vital part of our daily lives, so we wanted this to be a central point in our project. Especially with the COVID-19 pandemic, people are spending more time inside, so we wanted to create an app that encouraged a more active lifestyle. In addition, it is more essential than ever to be technologically literate, so we wanted to not only make use of interesting tech, but also teach others about it. Finally, money is an essential part of our modern society, and by combining these three things, we ended up with Exer.
 
